@@ -1,0 +1,174 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* elements */
+body {
+    font-family: 'Handlee', cursive;
+    margin: 0;
+}
+
+md-card-content {
+    margin: auto;
+    padding: 0px 0px 0px 0px;
+}
+
+form {
+    padding: 0px 16px 0px 16px;
+}
+
+md-toolbar a {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+md-sidenav-container {
+    min-height: 93vh;
+}
+
+/* classes */
+.title-bar {
+    font-weight: normal;
+}
+
+.app-content {
+    padding: 10px;
+}
+
+.app-content md-card {
+    margin: 10px;
+}
+
+.app-sidenav {
+    padding: 10px;
+    min-width: 175px;
+}
+
+.nav-list-button {
+    width: 100%;
+}
+
+.app-content md-checkbox {
+    margin: 10px;
+}
+
+.app-toolbar-filler {
+    flex: 1 1 auto;
+}
+
+.app-icon-button {
+    box-shadow: none;
+    user-select: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    filter: none;
+    font-weight: normal;
+    height: auto;
+    line-height: inherit;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.card-image {
+    width: 100%;
+    height: 530px;
+}
+
+.logo {
+    display: block;
+    height: 70px;
+}
+
+.logo-small {
+    height: 50px;
+}
+
+.mat-input-container {
+    width: 87%;
+    margin-top: 5px;
+    margin-right: 3%;
+}
+
+.alert-failure {
+    color: white;
+    border-radius: 2px;
+    padding: 5px 5px 5px 18px;
+    margin-bottom: 10px;
+    background:#F44336;
+    border:1px solid red;
+}
+
+.alert-success {
+    color: white;
+    border-radius: 2px;
+    padding: 5px 5px 5px 18px;
+    margin-bottom: 10px;
+    background:#4CAF50;
+    border:1px solid green;
+}
+
+.subtitle {
+    font-size: 1.5em;
+    display: block;
+    padding-top: 2px;
+    padding-left: 2px;
+}
+
+.social-button {
+    flex: 1 1 auto;
+    margin: 0px 16px 8px 16px !important;
+    padding: 8px 0px !important;
+}
+
+.left-padding {
+    padding-left: 16px;
+}
+
+.search-image {
+    width: 90%;
+    /*height: 200px;*/
+    opacity: 0.9;
+    /*margin: auto;*/
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.height200 {
+    height: 140px;
+}
+
+.info-title {
+    margin-top: 2px;
+    text-decoration: underline;
+}
+
+.margin-top-2 {
+    margin-top: 2px;
+}
+
+.margin-top-8 {
+    margin-top: 8px;
+}
+
+.margin-bottom-8 {
+    margin-bottom: 8px;
+}
+
+.margin-top-0 {
+    margin-top: 0px;
+}
+
+.margin-bottom-0 {
+    margin-bottom: 0px;
+}
+
+/* id's */

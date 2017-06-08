@@ -16,6 +16,8 @@ mongoose.Promise = require('bluebird');
 
 // create express app
 const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
 
 // set up mongoose/mongo connection
 // build db uri
@@ -55,6 +57,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // catchall redirect
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/index.html'));
+});
+
+// socket connection
+io.on('connection', (socket) => {
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', (data) => {
+        console.log(data);
+    });
 });
 
 // server start
