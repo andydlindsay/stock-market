@@ -14,10 +14,13 @@ const config = require('config');
 // use bluebird for Mongoose promises
 mongoose.Promise = require('bluebird');
 
+// allowed origins
+const allowedOrigins = 'http://localhost:8080';
+
 // create express app
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 // set up mongoose/mongo connection
 // build db uri
@@ -61,13 +64,22 @@ app.get('*', (req, res) => {
 
 // socket connection
 io.on('connection', (socket) => {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', (data) => {
-        console.log(data);
+    console.log('user connected');
+
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
     });
+
+    socket.on('add-stock', (stock) => {
+        console.log('stock:', stock);
+        io.emit('stock', { type: 'new-stock', text: stock });
+    });
+
 });
 
 // server start
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.info('Server listening on port %s\n', port);
 });
+
+io.listen(server);

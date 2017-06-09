@@ -1,3 +1,7 @@
-<p>
-  home works!
-</p>
+<form>
+  <div *ngFor="let stock of stocks">
+    {{ stock.text }}
+  </div>
+  <input [(ngModel)]="stock" id="stock" name="stock">
+  <button (click)="sendStock()">Send</button>
+</form>

@@ -8,13 +8,10 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import 'hammerjs';
 
+import { SocketService } from './services/socket.service';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
-
-const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: '**', redirectTo: '/'}
-];
 
 @NgModule({
   declarations: [
@@ -27,12 +24,12 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(appRoutes),
     MaterialModule,
     FlexLayoutModule
   ],
   providers: [
-    Title
+    Title,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })
