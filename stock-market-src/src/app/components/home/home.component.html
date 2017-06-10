@@ -1,7 +1,45 @@
-<form>
+<!-- stock chart -->
+<md-card>
+  <md-card-content>
+    <div id="chart">
+
+    </div>
+  </md-card-content>
+</md-card>
+
+<!-- stock cards -->
+<div class="flex-container">
+
+  <!-- display stock cards -->
   <div *ngFor="let stock of stocks">
-    {{ stock.text }}
+    <md-card>
+      <md-card-content>
+        <h2>Information for {{ stock.text }}</h2>
+      </md-card-content>
+    </md-card>
   </div>
-  <input [(ngModel)]="stock" id="stock" name="stock">
-  <button (click)="sendStock()">Send</button>
-</form>
+
+</div>
+
+<!--add a stock form -->
+<div class="flex-container" id="stock-form">
+  <md-card>
+    <md-card-content>
+      <form [formGroup]="stockForm">
+        <md-input-container>
+          <input mdAutocomplete="" type="text" required mdInput placeholder="Enter a stock symbol (e.g. GOOG)" formControlName="stock" id="stock">
+          <md-hint *ngIf="formErrors.stock">{{ formErrors.stock }}</md-hint>
+        </md-input-container>
+        <div class="flex-container">
+          <span class="app-toolbar-filler"></span>
+          <button type="submit" md-raised-button color="primary" (click)="sendStock()">Add</button>
+          <span class="app-toolbar-filler"></span>
+        </div>
+      </form>
+    </md-card-content>
+  </md-card>
+</div>
+
+
+
+  

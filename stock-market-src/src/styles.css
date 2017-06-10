@@ -25,6 +25,11 @@ md-sidenav-container {
     min-height: 93vh;
 }
 
+md-card {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 /* classes */
 .title-bar {
     font-weight: normal;
@@ -74,6 +79,12 @@ md-sidenav-container {
 
 .flex-container {
     display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 80%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .card-image {
@@ -91,9 +102,9 @@ md-sidenav-container {
 }
 
 .mat-input-container {
-    width: 87%;
+    /*width: 100%;*/
+    width: 250px;
     margin-top: 5px;
-    margin-right: 3%;
 }
 
 .alert-failure {
@@ -169,6 +180,10 @@ md-sidenav-container {
 
 .margin-bottom-0 {
     margin-bottom: 0px;
+}
+
+.width100 {
+    width: 100%;
 }
 
 /* id's */
