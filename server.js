@@ -3,7 +3,8 @@ const express = require('express'),
       mongoose = require('mongoose'),
       morgan = require('morgan'),
       path = require('path'),
-      bodyParser = require('body-parser');
+      bodyParser = require('body-parser'),
+      http = require('http');
 
 // require dotenv to populate environment variables
 require('dotenv').config();
@@ -19,8 +20,8 @@ const allowedOrigins = 'http://localhost:8080';
 
 // create express app
 const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const httpServer = http.Server(app);
+const io = require('socket.io')(httpServer);
 
 // set up mongoose/mongo connection
 // build db uri
@@ -72,7 +73,27 @@ io.on('connection', (socket) => {
 
     socket.on('add-stock', (stock) => {
         console.log('stock:', stock);
-        io.emit('stock', { type: 'new-stock', text: stock });
+        // request stock information from api
+        http.get('http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol = \'' + stock + '\'&format=json&env=store://datatables.org/alltableswithkeys&callback=', (res) => {
+            res.setEncoding('utf8');
+            let body = '';
+            res.on('data', (chunk) => {
+                body += chunk;
+            });
+            res.on('end', () => {
+                const stockInfo = JSON.parse(body).query.results.quote;
+                // console.log('stockInfo:', stockInfo);
+                io.emit('stock', { 
+                    type: 'new-stock',
+                    symbol: stock,
+                    name: stockInfo.Name,
+                    percentChange: stockInfo.PercentChange,
+                    currentPrice: stockInfo.Bid,
+                    currency: stockInfo.Currency
+                });
+            });
+        });
+        
     });
 
 });

@@ -5,6 +5,7 @@
 body {
     font-family: 'Handlee', cursive;
     margin: 0;
+    background-color: rgba(235,101,69,0.2);
 }
 
 md-card-content {
@@ -28,6 +29,8 @@ md-sidenav-container {
 md-card {
     margin-top: 8px;
     margin-bottom: 8px;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 /* classes */

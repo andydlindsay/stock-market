@@ -12,9 +12,12 @@
 
   <!-- display stock cards -->
   <div *ngFor="let stock of stocks">
-    <md-card>
+    <md-card *ngIf="stock.name != null && stock.currentPrice != null">
       <md-card-content>
-        <h2>Information for {{ stock.text }}</h2>
+        <h2>{{ stock.symbol }}</h2>
+        <h3 class="margin-bottom-8">{{ stock.name }}</h3>
+        <h3 class="margin-top-8" *ngIf="stock.currency == 'USD'">${{ stock.currentPrice + ' (' + stock.percentChange + ')' }}</h3>
+        <h3 class="margin-top-8" *ngIf="stock.currency != 'USD'">{{ stock.currentPrice }}</h3>
       </md-card-content>
     </md-card>
   </div>

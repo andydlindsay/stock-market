@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     if (this.stockForm.valid) {
 
       // check if stock symbol is valid
+      
 
       this.stock = this.stockForm.value.stock.toUpperCase();
 
@@ -83,7 +84,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   validationMessages = {
     'stock': {
-      'required': 'A stock is required.'
+      'required': 'A stock symbol is required.'
     }
   }
 
