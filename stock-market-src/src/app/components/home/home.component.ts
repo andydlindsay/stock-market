@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -20,18 +20,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     private socketService: SocketService
   ) { }
 
+  deleteStock(index) {
+    // send removal request to server
+    this.stocks.splice(index, 1);
+  }
+
   sendStock() {
     // check if form is valid
-    if (this.stockForm.valid) {
-
-      // check if stock symbol is valid
-      
-
+    if (this.stockForm.valid && this.stockForm.value.stock.trim().length > 0) {
       this.stock = this.stockForm.value.stock.toUpperCase();
-
-
       this.socketService.sendStock(this.stock);
       this.stockForm.reset();
+      this.stockForm = new FormGroup({
+        stock: new FormControl()
+      });
       this.stock = '';
     }
   }
@@ -39,9 +41,19 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.connection = this.socketService.getStocks().subscribe(
       stock => {
-        this.stocks.push(stock);
+        console.log(this.stocks.indexOf(stock));
+        let push = true;
+        for (let i = 0; i < this.stocks.length; i++) {
+          if (this.stocks[i].symbol == stock['symbol']) {
+            push = false;
+          }
+        }
+        if (push) {
+          this.stocks.push(stock);
+        }
       }
     );
+    console.log('this.stocks:', this.stocks);
     this.buildForm();
   }
 
@@ -50,33 +62,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   buildForm() {
-    this.stockForm = this.fb.group({
-      'stock': ['', [
-        Validators.required
-      ]]
+    this.stockForm = new FormGroup({
+      stock: new FormControl()
     });
-    this.stockForm.valueChanges.subscribe(data => this.onValueChanged(data));
   }  
-
-  // onValueChanged function taken from the Angular Cookbook's Form Validation section
-  // https://angular.io/docs/ts/latest/cookbook/form-validation.html
-  onValueChanged(data?: any) {
-    if (!this.stockForm) { return; }
-    const form = this.stockForm;
-
-    for (const field in this.formErrors) {
-      // clear previous error message if any
-      this.formErrors[field] = '';
-      const control = form.get(field);
-
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
-    }
-  }
 
   formErrors = {
     'stock': ''

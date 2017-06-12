@@ -1,27 +1,31 @@
 <!-- stock chart -->
-<md-card>
-  <md-card-content>
-    <div id="chart">
+<div id="chart">
+  <md-card>
+    <md-card-content>
+      
+    </md-card-content>
+  </md-card>
+</div>
 
-    </div>
-  </md-card-content>
-</md-card>
 
 <!-- stock cards -->
 <div class="flex-container">
-
-  <!-- display stock cards -->
-  <div *ngFor="let stock of stocks">
-    <md-card *ngIf="stock.name != null && stock.currentPrice != null">
+  <div *ngFor="let stock of stocks; let myIndex = index">
+    <!--<md-card *ngIf="stock.name != null && stock.currentPrice != null">-->
+    <md-card>
+      <md-toolbar class="{{ 'color' + (myIndex % 20) }}">
+        {{ stock.symbol }}&nbsp;({{ stock.exchange }})
+        <span class="app-toolbar-filler"></span>
+        <button md-button (click)="deleteStock(myIndex)">X</button>
+      </md-toolbar>
       <md-card-content>
-        <h2>{{ stock.symbol }}</h2>
-        <h3 class="margin-bottom-8">{{ stock.name }}</h3>
-        <h3 class="margin-top-8" *ngIf="stock.currency == 'USD'">${{ stock.currentPrice + ' (' + stock.percentChange + ')' }}</h3>
-        <h3 class="margin-top-8" *ngIf="stock.currency != 'USD'">{{ stock.currentPrice }}</h3>
+        <h3 class="padding-top-16 padding-left-16 margin-bottom-8">{{ stock.name }}</h3>
+        <h3 class="padding-left-16 margin-top-8" *ngIf="stock.currency == 'USD' && stock.currentPrice != null">${{ stock.currentPrice + ' (' + stock.percentChange + ')' }}</h3>
+        <h3 class="padding-left-16 margin-top-8" *ngIf="stock.currency != 'USD' && stock.currentPrice != null">{{ stock.currentPrice }}</h3>
+        <h3 class="padding-left-16 margin-top-8" *ngIf="stock.currentPrice == null">No current price data available</h3>
       </md-card-content>
     </md-card>
   </div>
-
 </div>
 
 <!--add a stock form -->
@@ -30,7 +34,8 @@
     <md-card-content>
       <form [formGroup]="stockForm">
         <md-input-container>
-          <input mdAutocomplete="" type="text" required mdInput placeholder="Enter a stock symbol (e.g. GOOG)" formControlName="stock" id="stock">
+          <!-- mdAutocomplete="" -->
+          <input type="text" mdInput placeholder="Enter a stock symbol (e.g. GOOG)" formControlName="stock" id="stock">
           <md-hint *ngIf="formErrors.stock">{{ formErrors.stock }}</md-hint>
         </md-input-container>
         <div class="flex-container">

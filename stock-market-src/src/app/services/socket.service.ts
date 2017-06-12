@@ -9,7 +9,7 @@ export class SocketService {
   private url = 'http://localhost:8080';
   private socket;
 
-  constructor() { }
+  constructor( ) { }
 
   sendStock(stock) {
     this.socket.emit('add-stock', stock);

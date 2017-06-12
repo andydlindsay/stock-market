@@ -5,7 +5,7 @@
 body {
     font-family: 'Handlee', cursive;
     margin: 0;
-    background-color: rgba(235,101,69,0.2);
+    background-color: rgba(235,101,69,0.15);
 }
 
 md-card-content {
@@ -14,7 +14,8 @@ md-card-content {
 }
 
 form {
-    padding: 0px 16px 0px 16px;
+    padding: 16px 16px 16px 16px;
+    margin: 16px;
 }
 
 md-toolbar a {
@@ -31,6 +32,10 @@ md-card {
     margin-bottom: 8px;
     margin-left: 4px;
     margin-right: 4px;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 0 !important;
+    min-width: 300px;
 }
 
 /* classes */
@@ -105,9 +110,10 @@ md-card {
 }
 
 .mat-input-container {
-    /*width: 100%;*/
-    width: 250px;
+    width: 275px;
     margin-top: 5px;
+    font-size: 1.25em;
+    padding-top: 16px;
 }
 
 .alert-failure {
@@ -143,6 +149,18 @@ md-card {
 
 .left-padding {
     padding-left: 16px;
+}
+
+.padding-left-16 {
+    padding-left: 16px !important;
+}
+
+.padding-top-8 {
+    padding-top: 8px !important;
+}
+
+.padding-top-16 {
+    padding-top: 16px !important;
 }
 
 .search-image {
@@ -189,4 +207,92 @@ md-card {
     width: 100%;
 }
 
+.float-right {
+    float: right;
+}
+
+.color0 {
+    background-color: rgba(51,102,204,0.3);
+}
+
+.color1 {
+    background-color: rgba(220,57,18,0.3);
+}
+
+.color2 {
+    background-color: rgba(255,153,0,0.3);
+}
+
+.color3 {
+    background-color: rgba(16,150,24,0.3);
+}
+
+.color4 {
+    background-color: rgba(153,0,153,0.3);
+}
+
+.color5 {
+    background-color: rgba(59,62,172,0.3);
+}
+
+.color6 {
+    background-color: rgba(0,153,198,0.3);
+}
+
+.color7 {
+    background-color: rgba(221,68,119,0.3);
+}
+
+.color8 {
+    background-color: rgba(102,170,0,0.3);
+}
+
+.color9 {
+    background-color: rgba(184,46,46,0.3);
+}
+
+.color10 {
+    background-color: rgba(49,99,149,0.3);
+}
+
+.color11 {
+    background-color: rgba(153,68,153,0.3);
+}
+
+.color12 {
+    background-color: rgba(34,170,153,0.3);
+}
+
+.color13 {
+    background-color: rgba(170,170,17,0.3);
+}
+
+.color14 {
+    background-color: rgba(102,51,204,0.3);
+}
+
+.color15 {
+    background-color: rgba(230,115,0,0.3);
+}
+
+.color16 {
+    background-color: rgba(139,7,7,0.3);
+}
+
+.color17 {
+    background-color: rgba(50,146,98,0.3);
+}
+
+.color18 {
+    background-color: rgba(85,116,166,0.3);
+}
+
+.color19{
+    background-color: rgba(59,62,172,0.3);
+}
+
 /* id's */
+#chart {
+    width: 80%;
+    margin: auto;
+}
