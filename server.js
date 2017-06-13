@@ -73,52 +73,59 @@ io.on('connection', (socket) => {
     });
 
     socket.on('add-stock', (stock) => {
-        console.log('stock:', stock.trim());
-        if (stock.trim().length > 0) {
-            let body ='';
-            // check if there is data for the stock symbol
-            const baseUrl = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker=';
-            https.get(baseUrl + stock + '&qopts.columns=ticker,date,close&date.gt=20170605&api_key=' + process.env.QUANDL_API_KEY, (res) => {
-                body = '';
-                res.setEncoding('utf8');
-                res.on('data', (chunk) => {
-                    body += chunk;
-                });
-                res.on('end', () => {
-                    const data = JSON.parse(body).datatable;
-                    if (data.data.length > 0) {
-                        console.log('good stock');
-                        // request stock information from api
-                        http.get('http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol = \'' + stock + '\'&format=json&env=store://datatables.org/alltableswithkeys&callback=', (res) => {
-                            res.setEncoding('utf8');
-                            body = '';
-                            res.on('data', (chunk) => {
-                                body += chunk;
+        console.log('stock:', stock.stock.trim());
+        if (stock.type == 'new-stock') {
+            if (stock.stock.trim().length > 0) {
+                let body ='';
+                // check if there is data for the stock symbol
+                const baseUrl = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker=';
+                https.get(baseUrl + stock.stock + '&qopts.columns=ticker,date,close&date.gt=20170605&api_key=' + process.env.QUANDL_API_KEY, (res) => {
+                    body = '';
+                    res.setEncoding('utf8');
+                    res.on('data', (chunk) => {
+                        body += chunk;
+                    });
+                    res.on('end', () => {
+                        const data = JSON.parse(body).datatable;
+                        if (data.data.length > 0) {
+                            console.log('good stock');
+                            // request stock information from api
+                            http.get('http://query.yahooapis.com/v1/public/yql?q=select * from yahoo.finance.quotes where symbol = \'' + stock.stock + '\'&format=json&env=store://datatables.org/alltableswithkeys&callback=', (res) => {
+                                res.setEncoding('utf8');
+                                body = '';
+                                res.on('data', (chunk) => {
+                                    body += chunk;
+                                });
+                                res.on('end', () => {
+                                    const stockInfo = JSON.parse(body).query.results.quote;
+                                    let stockType = 'new-stock';
+                                    // console.log('stockInfo:', stockInfo);
+                                    if (stockInfo.Name != null) {
+                                        io.emit('stock', { 
+                                            type: stockType,
+                                            symbol: stock.stock,
+                                            name: stockInfo.Name,
+                                            percentChange: stockInfo.PercentChange,
+                                            currentPrice: stockInfo.Bid,
+                                            currency: stockInfo.Currency,
+                                            exchange: stockInfo.StockExchange,
+                                            historic: data.data
+                                        });
+                                    }
+                                });
                             });
-                            res.on('end', () => {
-                                const stockInfo = JSON.parse(body).query.results.quote;
-                                let stockType = 'new-stock';
-                                // console.log('stockInfo:', stockInfo);
-                                if (stockInfo.Name != null) {
-                                    io.emit('stock', { 
-                                        type: stockType,
-                                        symbol: stock,
-                                        name: stockInfo.Name,
-                                        percentChange: stockInfo.PercentChange,
-                                        currentPrice: stockInfo.Bid,
-                                        currency: stockInfo.Currency,
-                                        exchange: stockInfo.StockExchange,
-                                        historic: data.data
-                                    });
-                                }
-                            });
-                        });
-                    } else {
-                        console.log('bad stock');
-                    }
+                        } else {
+                            console.log('bad stock');
+                        }
+                    });
                 });
+            }
+        } else if (stock.type == 'del-stock') {
+            io.emit('stock', { 
+                type: 'del-stock',
+                symbol: stock.stock
             });
-        }    
+        }
     });
 
 });

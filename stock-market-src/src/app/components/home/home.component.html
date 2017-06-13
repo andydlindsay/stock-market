@@ -19,7 +19,7 @@
         <button md-button (click)="deleteStock(myIndex)">X</button>
       </md-toolbar>
       <md-card-content>
-        <h3 class="padding-top-16 padding-left-16 margin-bottom-8">{{ stock.name }}</h3>
+        <h3 class="padding-top-16 padding-left-16 margin-bottom-8 padding-right-16">{{ stock.name }}</h3>
         <h3 class="padding-left-16 margin-top-8" *ngIf="stock.currency == 'USD' && stock.currentPrice != null">${{ stock.currentPrice + ' (' + stock.percentChange + ')' }}</h3>
         <h3 class="padding-left-16 margin-top-8" *ngIf="stock.currency != 'USD' && stock.currentPrice != null">{{ stock.currentPrice }}</h3>
         <h3 class="padding-left-16 margin-top-8" *ngIf="stock.currentPrice == null">No current price data available</h3>
@@ -47,7 +47,3 @@
     </md-card-content>
   </md-card>
 </div>
-
-
-
-  

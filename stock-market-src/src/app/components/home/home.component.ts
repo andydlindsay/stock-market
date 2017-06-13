@@ -22,13 +22,14 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   deleteStock(index) {
     // send removal request to server
-    this.stocks.splice(index, 1);
+    console.log('calling delete');
+    this.socketService.deleteStock(this.stocks[index].symbol);
   }
 
   sendStock() {
     // check if form is valid
     if (this.stockForm.valid && this.stockForm.value.stock.trim().length > 0) {
-      this.stock = this.stockForm.value.stock.toUpperCase();
+      this.stock = this.stockForm.value.stock.trim().toUpperCase();
       this.socketService.sendStock(this.stock);
       this.stockForm.reset();
       this.stockForm = new FormGroup({
@@ -41,15 +42,26 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.connection = this.socketService.getStocks().subscribe(
       stock => {
-        console.log(this.stocks.indexOf(stock));
-        let push = true;
-        for (let i = 0; i < this.stocks.length; i++) {
-          if (this.stocks[i].symbol == stock['symbol']) {
-            push = false;
+        if (stock['type'] == 'new-stock') {
+          let push = true;
+          for (let i = 0; i < this.stocks.length; i++) {
+            if (this.stocks[i].symbol == stock['symbol']) {
+              push = false;
+            }
           }
-        }
-        if (push) {
-          this.stocks.push(stock);
+          if (push) {
+            this.stocks.push(stock);
+          }
+        } else if (stock['type'] == 'del-stock') {
+          let removeIndex;
+          for (let i = 0; i < this.stocks.length; i++) {
+            if (this.stocks[i].symbol == stock['symbol']) {
+              removeIndex = i;
+            }
+          }
+          if (removeIndex != undefined) {
+            this.stocks.splice(removeIndex, 1);
+          }
         }
       }
     );

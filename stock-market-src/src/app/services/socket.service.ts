@@ -12,7 +12,19 @@ export class SocketService {
   constructor( ) { }
 
   sendStock(stock) {
-    this.socket.emit('add-stock', stock);
+    const newStock = {
+      stock,
+      type: 'new-stock'
+    }
+    this.socket.emit('add-stock', newStock);
+  }
+
+  deleteStock(stock) {
+    const delStock = {
+      stock,
+      type: 'del-stock'
+    }
+    this.socket.emit('add-stock', delStock);
   }
 
   getStocks() {
