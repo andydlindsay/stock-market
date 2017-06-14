@@ -5,7 +5,7 @@
 body {
     font-family: 'Handlee', cursive;
     margin: 0;
-    background-color: rgba(235,101,69,0.1);
+    background-color: rgba(235,101,69,0.15);
 }
 
 md-card-content {
@@ -310,5 +310,6 @@ md-card {
 }
 
 #graph {
-    min-height: 40vh;
+    min-height: 35vh;
+    max-height: 35vh;
 }

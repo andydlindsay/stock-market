@@ -30,14 +30,16 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   sendStock() {
     // check if form is valid
-    if (this.stockForm.valid && this.stockForm.value.stock.trim().length > 0) {
-      this.stock = this.stockForm.value.stock.trim().toUpperCase();
-      this.socketService.sendStock(this.stock);
-      this.stockForm.reset();
-      this.stockForm = new FormGroup({
-        stock: new FormControl()
-      });
-      this.stock = '';
+    if (this.stockForm.value.stock != null) {
+      if (this.stockForm.valid && this.stockForm.value.stock.trim().length > 0) {
+        this.stock = this.stockForm.value.stock.trim().toUpperCase();
+        this.socketService.sendStock(this.stock);
+        this.stockForm.reset();
+        this.stockForm = new FormGroup({
+          stock: new FormControl()
+        });
+        this.stock = '';
+      }
     }
   }
 
@@ -77,8 +79,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       }
     );
-    console.log('this.stocks:', this.stocks);
-    console.log('this.stockData:', this.stockData);
     this.buildForm();
   }
 
@@ -252,15 +252,5 @@ export class HomeComponent implements OnInit, OnDestroy {
       stock: new FormControl()
     });
   }  
-
-  formErrors = {
-    'stock': ''
-  }
-
-  validationMessages = {
-    'stock': {
-      'required': 'A stock symbol is required.'
-    }
-  }
 
 }

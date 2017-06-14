@@ -1,6 +1,5 @@
 const express = require('express'),
       cors = require('cors'),
-      mongoose = require('mongoose'),
       morgan = require('morgan'),
       path = require('path'),
       bodyParser = require('body-parser'),
@@ -13,9 +12,6 @@ require('dotenv').config();
 // load config
 const config = require('config');
 
-// use bluebird for Mongoose promises
-mongoose.Promise = require('bluebird');
-
 // allowed origins
 const allowedOrigins = 'http://localhost:8080';
 
@@ -23,23 +19,6 @@ const allowedOrigins = 'http://localhost:8080';
 const app = express();
 const httpServer = http.Server(app);
 const io = require('socket.io')(httpServer);
-
-// set up mongoose/mongo connection
-// build db uri
-let dbURI = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@ds129090.mlab.com:29090/stock-market';
-
-// change database uri if testing
-if (config.util.getEnv('NODE_ENV') == 'test') {
-    dbURI = 'mongodb://localhost:27017/stockmarkettest';
-}
-
-// connect to the database
-mongoose.connect(dbURI);
-
-// on error
-mongoose.connection.on('error', (err) => {
-    console.info('Database error: ' + err);
-});
 
 // port number
 const port = process.env.PORT || 8080;
