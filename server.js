@@ -13,7 +13,8 @@ require('dotenv').config();
 const config = require('config');
 
 // allowed origins
-const allowedOrigins = 'http://localhost:8080';
+// const allowedOrigins = 'http://localhost:8080';
+const allowedOrigins = 'https://andydlindsay-stock-market.herokuapp.com:' + process.env.PORT;
 
 // create express app
 const app = express();
