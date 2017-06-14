@@ -2,7 +2,12 @@
 <div id="chart">
   <md-card>
     <md-card-content>
-      
+      <md-toolbar>Stocket</md-toolbar>
+      <div id="graph-area">
+        <div *ngIf="!stockData.length > 0">
+          <h1 class="text-center">Enter a stock symbol below to get started!</h1>
+        </div>
+      </div>
     </md-card-content>
   </md-card>
 </div>
@@ -11,7 +16,6 @@
 <!-- stock cards -->
 <div class="flex-container">
   <div *ngFor="let stock of stocks; let myIndex = index">
-    <!--<md-card *ngIf="stock.name != null && stock.currentPrice != null">-->
     <md-card>
       <md-toolbar class="{{ 'color' + (myIndex % 20) }}">
         {{ stock.symbol }}&nbsp;({{ stock.exchange }})

@@ -5,7 +5,7 @@
 body {
     font-family: 'Handlee', cursive;
     margin: 0;
-    background-color: rgba(235,101,69,0.15);
+    background-color: rgba(235,101,69,0.1);
 }
 
 md-card-content {
@@ -211,6 +211,10 @@ md-card {
     width: 100%;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .color0 {
     background-color: rgba(51,102,204,0.3);
 }
@@ -295,4 +299,16 @@ md-card {
 #chart {
     width: 80%;
     margin: auto;
+    padding-top: 16px !important;
+}
+
+#graph-area {
+    /*min-height: 40vh;*/
+    padding-left: 32px !important;
+    padding-top: 40px !important;
+    padding-right: 24px !important;
+}
+
+#graph {
+    min-height: 40vh;
 }

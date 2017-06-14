@@ -78,8 +78,9 @@ io.on('connection', (socket) => {
             if (stock.stock.trim().length > 0) {
                 let body ='';
                 // check if there is data for the stock symbol
+                const dateString = '20160613';
                 const baseUrl = 'https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker=';
-                https.get(baseUrl + stock.stock + '&qopts.columns=ticker,date,close&date.gt=20170605&api_key=' + process.env.QUANDL_API_KEY, (res) => {
+                https.get(baseUrl + stock.stock + '&qopts.columns=ticker,date,close&date.gt=' + dateString + '&api_key=' + process.env.QUANDL_API_KEY, (res) => {
                     body = '';
                     res.setEncoding('utf8');
                     res.on('data', (chunk) => {
@@ -114,8 +115,6 @@ io.on('connection', (socket) => {
                                     }
                                 });
                             });
-                        } else {
-                            console.log('bad stock');
                         }
                     });
                 });
